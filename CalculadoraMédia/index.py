@@ -5,4 +5,4 @@ nota3 = 93
 
 media = (nota1 + nota2 + nota3) / 3
 
-print(media)
+print(media)    
