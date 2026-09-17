@@ -60,3 +60,34 @@ df = pd.read_csv('https://raw.githubusercontent.com/andr3nf/clima_municipios_bra
 #___PREENCHENDO VALORES VAZIOS___
 #df = df.fillna(0) #Preenche valores vazios com 0
 
+#_________ATIVIDADE_________
+#Buscando a cidade
+cidade = df[df["nome_municipio"] == "Horizontina"] 
+
+#Temperatura minima 
+temperaturas = cidade[['tmin_jan',
+       'tmin_fev', 'tmin_mar', 'tmin_abr', 'tmin_mai', 'tmin_jun', 'tmin_jul',
+       'tmin_ago', 'tmin_set', 'tmin_out', 'tmin_nov', 'tmin_dez']]
+
+temperatura_minima = temperaturas.min(axis=1).iloc[0]
+
+#Défit hidríco
+defHidrico = cidade[['def_jan',
+       'def_fev', 'def_mar', 'def_abr', 'def_mai', 'def_jun', 'def_jul',
+       'def_ago', 'def_set', 'def_out', 'def_nov', 'def_dez']]
+
+maior_def = defHidrico.max(axis=1).iloc[0]
+
+#Média das quatro estações
+verao = cidade[["tmin_dez", "tmin_jan", "tmin_fev"]].mean(axis=1)
+outono = cidade[["tmin_mar", "tmin_abr", "tmin_mai"]].mean(axis=1)
+inverno = cidade[["tmin_jun", "tmin_jul", "tmin_ago"]].mean(axis=1)
+primavera = cidade[["tmin_set", "tmin_out", "tmin_nov"]].mean(axis=1)
+
+media = ((verao + outono + inverno + primavera) / 4).iloc[0]
+
+print("Cidade = ", cidade)
+print("")
+print("Temperatura mínima = ", f"{temperatura_minima:.2f}")
+print("Maior déficit hídrico = ", f"{maior_def:.2f}")
+print("Temperatura média das estações = ", f"{media:.2f}")
